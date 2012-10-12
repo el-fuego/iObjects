@@ -12,7 +12,7 @@ iDate = function (val) {
 
     // copy attributes
 	this.attributes = {};
-	_this.attributes = this._extendParams(_this.attributes, this.defaults);
+	this.attributes = this._extendParams(this.attributes, this.defaults);
 
 
 	/**
