@@ -1,14 +1,14 @@
 <h1>iObjects</h1>
 
-<b>Объекты для повседневной работы с датами, периодами, номерами карт/счетов, валютами и тд.
+<b>Объекты для повседневной работы с датами, периодами, номерами карт/счетов, валютами и тд.</b>
 <ul>
-<li>new iDate("30.01.2012")</li>
-<li>new iPeriod("today-tomorrow")</li>
-<li>new iAccount("1234 1234 1234 1234")</li>
-<li>new iCurrency("usd")</li>
-<li>new iMoney("1234.01")</li>
+<li>new <b>iDate</b>("30.01.2012")</li>
+<li>new <b>iPeriod</b>("today-tomorrow")</li>
+<li>new <b>iAccount</b>("1234 1234 1234 1234")</li>
+<li>new <b>iCurrency</b>("usd")</li>
+<li>new <b>iMoney</b>("1234.01")</li>
 </ul>
-</b>
+
 
 
 <br>
