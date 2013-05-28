@@ -10,295 +10,322 @@
  */
 iMoney = function (val, kopeksPointer) {
 
-	/**
-	 * set defaults
-	 * @type {null}
-	 */
-	this['float'] = this['int'] = this['kopeks'] = null;
+    /**
+     * set defaults
+     * @type {null}
+     */
+    this['float'] = this['int'] = this['kopeks'] = null;
 
-	/**
-	 * param is undefined
-	 */
-	if (typeof val === 'undefined' || val === null || val === "") {
+    /**
+     * param is undefined
+     */
+    if (typeof val === 'undefined' || val === null || val === "") {
 
-		this['float'] = this['int'] = this['kopeks'] = 0;
+        this['float'] = this['int'] = this['kopeks'] = 0;
 
-	} else if (typeof val === 'object' && val instanceof iMoney) {
+    } else if (typeof val === 'object' && val instanceof iMoney) {
 
-		this['float'] = val['float'];
-		this['int'] = val['int'];
-		this['kopeks'] = val['kopeks'];
-		return this;
+        this['float'] = val['float'];
+        this['int'] = val['int'];
+        this['kopeks'] = val['kopeks'];
+        return this;
 
-	} else if (typeof val === 'number') {
+    }
 
-		this._setAttributesByFloat(val);
+    if (typeof val === 'number') {
 
-	} else if (typeof val === 'string' && val.replace(/[^0-9,. ]/g, '').length > 0) {
+        this._setAttributesByFloat(val);
 
-		var arr = null;
+    } else if (typeof val === 'string' && val.replace(/[^0-9,. ]/g, '').length > 0) {
 
-		/**
-		 * replace &nbsp; &#160; ect. and whitespaces
-		 * @type {*}
-		 */
-		var val = val.replace(/(&(#[0-9]{3,4}|[a-z]+);)|\s+/gi, '');
+        var arr = null;
+
+        /**
+         * replace &nbsp; &#160; ect. and whitespaces
+         * @type {*}
+         */
+        val = val.replace(/(&(#[0-9]{3,4}|[a-z]+);)|\s+/gi, '');
 
 
-		/**
-		 * check for errors
-		 */
-		if (!(/^-?[0-9., ]+$/).test(val)) {
+        /**
+         * use pointer from params if getted
+         */
+        if (typeof kopeksPointer === 'string') {
 
-			_error('Check amount "' + val + '"');
-		}
+            arr = val.split(kopeksPointer);
 
-		/**
-		 * use pointer from params if getted
-		 */
-		if (typeof kopeksPointer === 'string') {
+            /**
+             * default pointer
+             */
+        } else {
 
-			arr = val.split(kopeksPointer);
+            /**
+             * 1 234.56
+             * 1,234.56
+             * @type {*}
+             */
+            arr = val.split('.');
 
-			/**
-			 * default pointer
-			 */
-		} else {
+            /**
+             * 1 234,56
+             */
+            if (!arr || arr.length !== 2) {
+                arr = val.split(',');
+            }
+        }
 
-			/**
-			 * 1 234.56
-			 * 1,234.56
-			 * @type {*}
-			 */
-			arr = val.split('.');
+        /**
+         * without kopeks
+         */
+        if (!arr || arr.length !== 2) {
+            arr = [val, '0'];
+        }
 
-			/**
-			 * 1 234,56
-			 */
-			if (!arr || arr.length !== 2)
-				arr = val.split(',');
-		}
+        /**
+         * replace not digits && two "-" :)
+         * @type {String|XML}
+         */
+        arr[0] = arr[0].replace(/[,\. ]/g, '').replace(/\-\-/g, '-');
+        arr[1] = arr[1].replace(/[,\. ]/g, '');
 
-		/**
-		 * without kopeks
-		 */
-		if (!arr || arr.length !== 2)
-			arr = [val, '0'];
+        /**
+         * check for errors
+         */
+        if (!(/^-?[0-9]+$/).test(arr[0]) || !(/^[0-9]+$/).test(arr[1])) {
+            return this;
+        }
 
-		/**
-		 * replace not digits && two "-" :)
-		 * @type {String|XML}
-		 */
-		arr[0] = arr[0].replace(/[,\. ]/g, '').replace(/\-\-/g, '-');
-		arr[1] = arr[1].replace(/[,\. ]/g, '');
+        /**
+         * 0.2 = 0.20
+         */
+        if (arr[1].length === 1) {
+            arr[1] = arr[1] + '0';
+        }
 
-		/**
-		 * check for errors
-		 */
-		if (!(/^-?[0-9]+$/).test(arr[0]) || !(/^[0-9]+$/).test(arr[1])) {
-			return this;
-		}
+        var isNegative = arr[0].indexOf('-') >= 0;
 
-		/**
-		 * 0.2 = 0.20
-		 */
-		if (arr[1].length === 1)
-			arr[1] = arr[1] + '0';
+        arr[0] = arr[0].replace(/\-/g, '');
 
-		var isNegative = arr[0].indexOf('-') >= 0;
+        var factor = Math.pow(10, arr[1].length || 2);
 
-		arr[0] = arr[0].replace(/\-/g, '');
-
-		// set val
-		this._setAttributesByFloat(
-			(isNegative ? -1 : 1) * ( +(arr[0]) + +(arr[1]) / Math.pow(10, arr[1].length || 2) ));
-	}
-}
+        /**
+         * Установка значений.
+         * Делаем дополнительное округление для исправления бага 5.56 -> 5.5600000000000005
+         */
+        this._setAttributesByFloat((isNegative ? -1 : 1) * (
+            Math.round((+arr[0] + (arr[1] / factor)) * factor) / factor
+        ));
+    }
+};
 
 iMoney.prototype = {
 
-	/**
-	 * attributes for info
-	 */
-	float:                 null,
-	int:                   null,
-	kopeks:                null,
-	kopeksPointer:         '.',
-	thousandPointer:       ' ',
-	htmlTag:               'small',
+    /**
+     * attributes for info
+     */
+    "float":         null,
+    "int":           null,
+    kopeks:          null,
+    kopeksPointer:   '.',
+    thousandPointer: ' ',
+    htmlTag:         'small',
 
 
-	/**
-	 * set float, int, kopeks by float value
-	 * @param num
-	 * @private
-	 */
-	_setAttributesByFloat: function (num) {
+    /**
+     * set float, int, kopeks by float value
+     * @param num
+     * @private
+     */
+    _setAttributesByFloat: function (num) {
 
-		this['float'] = num || 0;
-		this['int'] = parseInt(num) || 0;
-		this['kopeks'] = Math.abs(Math.round(( this['float'] - this['int'] ) * 100)) || 0;
+        this['float'] = num || 0;
+        this['int'] = parseInt(num) || 0;
+        this['kopeks'] = Math.abs(Math.round(( this['float'] - this['int'] ) * 100)) || 0;
 
-	},
+    },
 
-	/**
-	 * String like '00023'
-	 * @param num
-	 * @param length
-	 * @return {*}
-	 * @private
-	 */
-	_addZeros: function (num, length) {
+    /**
+     * String like '00023'
+     * @param num
+     * @param length
+     * @return {*}
+     * @private
+     */
+    _addZeros: function (num, length) {
 
-		var ret = num.toString();
+        var ret = num.toString();
 
-		while (ret.length < length)
-			ret = '0' + ret;
+        while (ret.length < length) {
+            ret = '0' + ret;
+        }
 
-		return ret;
+        return ret;
 
-	},
+    },
 
-	/**
-	 * Get full money string
-	 * @param kopeksPointer : null || '.'
-	 * @param thousandPointer : null || ' '
-	 * @param shortFormat : null || true || false
-	 * @param toFixed : if true, return 1 522 from 1522.00
-	 * @return {String}
-	 */
-	toString: function (kopeksPointer, thousandPointer, shortFormat, toFixed) {
-		toFixed = (isNaN(toFixed) || toFixed <= 2) ? 2 : toFixed;
+    /**
+     * Get full money string
+     * @param kopeksPointer : null || '.'
+     * @param thousandPointer : null || ' '
+     * @param shortFormat : null || true || false
+     * @param toFixed : if true, return 1 522 from 1522.00
+     * @param toABS : false return 1.00 from -1.00
+     * @return {String}
+     */
+    toString: function (kopeksPointer, thousandPointer, shortFormat, toFixed, toABS) {
+        toFixed = (isNaN(toFixed) || toFixed <= 2) ? 2 : toFixed;
 
-		/**
-		 * set default pointers
-		 */
-		if (typeof kopeksPointer !== 'string')
-			kopeksPointer = this.kopeksPointer;
+        /**
+         * set default pointers
+         */
+        if (typeof kopeksPointer !== 'string') {
+            kopeksPointer = this.kopeksPointer;
+        }
 
-		if (typeof thousandPointer !== 'string')
-			thousandPointer = this.thousandPointer;
+        if (typeof thousandPointer !== 'string') {
+            thousandPointer = this.thousandPointer;
+        }
 
-		if (typeof shortFormat !== 'boolean')
-			shortFormat = false;
+        if (typeof shortFormat !== 'boolean') {
+            shortFormat = false;
+        }
 
-		/**
-		 * add zeros to kopeks
-		 * @type {*|String}
-		 */
-		var kopeksStr = (toFixed > 2) ?
-			(this['float'] || 0).toFixed(toFixed).toString().split('.')[1] || '0' :
-			(this['kopeks'] || 0).toString();
+        /**
+         * add zeros to kopeks
+         * @type {*|String}
+         */
+        var kopeksStr = (toFixed > 2) ? (this['float'] || 0).toFixed(toFixed).toString().split('.')[1] || '0' : (this['kopeks'] || 0).toString();
 
-		while (kopeksStr.length < 2)
-			kopeksStr = '0' + kopeksStr;
+        while (kopeksStr.length < 2) {
+            kopeksStr = '0' + kopeksStr;
+        }
 
-		/**
-		 * add pointer to thousands
-		 * @type {String}
-		 */
-		var intStr = Math.abs(this['int'] || 0).toString();
+        /**
+         * add pointer to thousands
+         * @type {String}
+         */
+        var intStr = Math.abs(this['int'] || 0).toString();
 
-		/**
-		 * insert to array every 3 digits
-		 * @type {Array}
-		 */
-		var intArr = [];
-		while (intStr.length > 0) {
+        /**
+         * insert to array every 3 digits
+         * @type {Array}
+         */
+        var intArr = [];
+        while (intStr.length > 0) {
 
-			if (intStr.length > 3) {
+            if (intStr.length > 3) {
 
-				intArr.unshift(intStr.substring(intStr.length - 3, intStr.length));
+                intArr.unshift(intStr.substring(intStr.length - 3, intStr.length));
 
-				intStr = intStr.substring(0, intStr.length - 3);
+                intStr = intStr.substring(0, intStr.length - 3);
 
-			} else {
+            } else {
 
-				intArr.unshift(intStr.substring(0, intStr.length));
-				intStr = '';
-			}
-		}
+                intArr.unshift(intStr.substring(0, intStr.length));
+                intStr = '';
+            }
+        }
 
-		return (this.isNegative() ? '- ' : '') +
-			intArr.join(thousandPointer) + (shortFormat && !this['kopeks'] ? '' : kopeksPointer + kopeksStr);
-	},
+        return ((this.isNegative() && !toABS) ? '- ' : '') + intArr.join(thousandPointer) + (shortFormat && !this['kopeks'] ? '' : kopeksPointer + kopeksStr);
+    },
 
 
-	/**
-	 * Get full money string with <htmlTag> in kopeks
-	 * @param kopeksPointer : null || '.'
-	 * @param thousandPointer : null || ' '
-	 * @param htmlTag : null || 'tagName'
-	 * @param shortFormat : null || true || false
-	 * @param toFixed : true: return 1 522 from 1522.00
-	 * @return {String}
-	 */
-	toHtml: function (kopeksPointer, thousandPointer, htmlTag, shortFormat, toFixed) {
+    /**
+     * Get full money string with <htmlTag> in kopeks
+     * @param kopeksPointer : null || '.'
+     * @param thousandPointer : null || ' '
+     * @param htmlTag : null || 'tagName'
+     * @param shortFormat : null || true || false
+     * @param toFixed : true: return 1 522 from 1522.00
+     * @param toABS : false return 1.00 from -1.00
+     * @return {String}
+     */
+    toHtml: function (kopeksPointer, thousandPointer, htmlTag, shortFormat, toFixed, toABS) {
 
-		/**
-		 * set default pointers
-		 */
-		if (typeof kopeksPointer !== 'string')
-			kopeksPointer = this.kopeksPointer;
+        /**
+         * set default pointers
+         */
+        if (typeof kopeksPointer !== 'string') {
+            kopeksPointer = this.kopeksPointer;
+        }
 
-		if (typeof thousandPointer !== 'string')
-			thousandPointer = this.thousandPointer;
+        if (typeof thousandPointer !== 'string') {
+            thousandPointer = this.thousandPointer;
+        }
 
-		if (typeof htmlTag !== 'string')
-			htmlTag = this.htmlTag;
+        if (typeof htmlTag !== 'string') {
+            htmlTag = this.htmlTag;
+        }
 
-		if (typeof shortFormat !== 'boolean')
-			shortFormat = false;
+        if (typeof shortFormat !== 'boolean') {
+            shortFormat = false;
+        }
 
-		/**
-		 * split to [amount, kopeks]
-		 * @type {Array}
-		 */
-		var arr = this.toString(kopeksPointer, thousandPointer, shortFormat, toFixed).replace(/ /g, '&nbsp;').split(kopeksPointer);
+        /**
+         * split to [amount, kopeks]
+         * @type {Array}
+         */
+        var arr = this.toString(kopeksPointer, thousandPointer, shortFormat, toFixed, toABS).replace(/ /g, '&nbsp;').split(kopeksPointer);
 
-		/**
-		 * add tag to kopeks
-		 * @type {String}
-		 */
-		arr[1] = '<' + htmlTag + '>' + arr[1] + '</' + htmlTag + '>';
+        /**
+         * add tag to kopeks
+         * @type {String}
+         */
+        arr[1] = '<' + htmlTag + '>' + arr[1] + '</' + htmlTag + '>';
 
-		return arr.join(kopeksPointer);
-	},
+        return arr.join(kopeksPointer);
+    },
 
-	/**
-	 * Get Float, Integer, Number
-	 * @return {null|int}
-	 */
-	toFloat: function () {
-		return (this.float || 0);
-	},
-	toNumber: function () {
-		return (this.float || 0);
-	},
-	toInteger: function () {
-		return (this['int'] || 0);
-	},
-	toInt: function () {
-		return (this['int'] || 0);
-	},
+    /**
+     * Get Float, Integer, Number
+     * @return {null|int}
+     */
+    toFloat:   function () {
+        return (this['float'] || 0);
+    },
+    toNumber:  function () {
+        return (this['float'] || 0);
+    },
+    toInteger: function () {
+        return (this['int'] || 0);
+    },
+    toInt:     function () {
+        return (this['int'] || 0);
+    },
 
-	isNull: function () {
-		return  (this['float'] == 0 || this['float'] == null);
-	},
+    isNull: function () {
+        return  (this['float'] == 0 || this['float'] == null);
+    },
 
-	isNegative: function () {
-		return  this.toFloat() < 0;
-	},
+    isNegative: function () {
+        return  this.toFloat() < 0;
+    },
 
-	getAbs:   function () {
-		return new iMoney(Math.abs(this.toFloat()));
-	},
+    getAbs: function () {
+        return new iMoney(Math.abs(this.toFloat()));
+    },
 
-	/**
-	 * Check data
-	 * @return {Boolean}
-	 */
-	validate: function () {
-		return this['float'] !== null;
-	}
+    getInverted: function () {
+        return new iMoney(-1 * this.toFloat());
+    },
+
+    /**
+     * Check data
+     * @return {Boolean}
+     */
+    validate: function () {
+        return this['float'] !== null;
+    },
+
+    /**
+     *
+     * @param digits
+     */
+    toFixed: function (digits) {
+        digits = +(digits || 0);
+
+        var factor = Math.pow(10, digits);
+
+        return Math.round(this['float'] * factor) / factor;
+    }
 };
