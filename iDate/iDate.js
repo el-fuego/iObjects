@@ -1,7 +1,6 @@
 /**
  * @author Knyazevich Denis, Pulyaev Yuriy
  * Currency Parser|normalizator
- * need:    log.js
  * use:        a = new iDate('1.01.2012 12:38')
  * a.toString('dd.mm.yyyy HH:MM:ss.l')
  * @param val
@@ -9,6 +8,10 @@
  * @return {*}
  */
 
+/**
+ * @class iDate
+ * @param val {iDate|Number|String|Object}
+ */
 iDate = function (val) {
 
     // copy attributes
@@ -351,9 +354,9 @@ iDate.prototype = {
     },
 
     /**
-     * Получаем номер месяца (от 1 до 12) в зависимости от имени
-     * @param monthName
-     * @return {null|number}
+     * Get month number (1..12)
+     * @param monthName {String}
+     * @return {null|Number}
      * @private
      */
     _getMonthIndexByName: function (monthName) {
@@ -383,7 +386,7 @@ iDate.prototype = {
     ],
 
     /**
-     * Получаем название месяца
+     * Get month name
      * @return {String}
      */
     getMonthName: function () {
@@ -393,7 +396,7 @@ iDate.prototype = {
 
     /**
      * Array of masks and splitters
-     * @param format = some kind of 'dd.mm.yyyy HH:MM'
+     * @param format {String} some kind of 'dd.mm.yyyy HH:MM'
      * @return {Array}
      * @private
      */
@@ -414,8 +417,8 @@ iDate.prototype = {
 
     /**
      * String like '00023'
-     * @param num : Float || Int
-     * @param length : of string vs zeros
+     * @param num {Float}
+     * @param length {integer} length of string vs zeros
      * @return {String}
      * @private
      */
@@ -433,7 +436,7 @@ iDate.prototype = {
 
     /**
      * Set date to attributes
-     * @param date
+     * @param date {Date}
      * @private
      */
     _setDate: function (date) {
@@ -448,10 +451,10 @@ iDate.prototype = {
     },
 
     /**
-     * set attribute
-     * @param key : '' || {key: val}
-     * @param val
-     * @return {Boolean}
+     * Set attribute
+     * @param key {String|Object} '' || {key: val}
+     * @param [val] {*}
+     * @return {*}
      */
     set: function (key, val) {
 
@@ -488,8 +491,8 @@ iDate.prototype = {
     },
 
     /**
-     * get attribute
-     * @param key
+     * Get attribute
+     * @param key {String}
      * @return {String|null}
      */
     get: function (key) {
@@ -498,7 +501,7 @@ iDate.prototype = {
 
     /**
      * Get full date string
-     * @param format : null || some kind of 'dd.mm.yyyy HH:MM'
+     * @param format {String|null} null || some kind of 'dd.mm.yyyy HH:MM'
      * @return {String}
      */
     toString: function (format) {
@@ -552,7 +555,7 @@ iDate.prototype = {
 
     /**
      * Get date only string
-     * @param format : null || some kind of 'dd.mm.yyyy'
+     * @param format {String|null} null || some kind of 'dd.mm.yyyy'
      * @return {String}
      */
     date: function (format) {
@@ -566,7 +569,7 @@ iDate.prototype = {
 
     /**
      * Get time only string
-     * @param format null || some kind of 'HH:MM:ss.l'
+     * @param format {String|null} null || some kind of 'HH:MM:ss.l'
      * @return {String}
      */
     time: function (format) {
@@ -586,7 +589,7 @@ iDate.prototype = {
 
     /**
      * Get date in milliseconds, since 1 january 1970
-     * @return {Date}
+     * @return {Integer}
      */
     getMilliseconds: function () {
         var milliseconds = Date.parse(this.toDate());
@@ -600,9 +603,9 @@ iDate.prototype = {
     },
 
     /**
-     * returns the difference between dates
-     * @param date : {years, months, days, hours, minutes, seconds, ms}
-     * @return {*}
+     * Return the difference between dates
+     * @param date {iDate|*} iDate || iDate parameters
+     * @return {Object} {years, months, days, hours, minutes, seconds, ms}
      */
     getDifference: function (date) {
 
@@ -628,9 +631,9 @@ iDate.prototype = {
     /**
      * returns the difference between dates at specified units
      * @units default is "days"
-     * @param date
-     * @param units : "years" || "months" || "days" || "hours" || "minutes" || "seconds" || "ms"
-     * @return {*}
+     * @param date {iDate|*} iDate || iDate parameters
+     * @param units {String} "years" || "months" || "days" || "hours" || "minutes" || "seconds" || "ms". Default "days"
+     * @return {Float}
      */
     getUnitDifference: function (date, units) {
 
@@ -686,8 +689,9 @@ iDate.prototype = {
     },
 
     /**
-     * возвращает количество дней в месяце
-     * @params - month : 1-12. Если не указан, то берется текущий месяц
+     * Get days count at month
+     * @param [month] {Integer} 1-12. default this.get('month')
+     * @return {Integer}
      */
     getDaysInMonth: function (month) {
 
@@ -698,8 +702,9 @@ iDate.prototype = {
     },
 
     /**
-     * возвращает iDate + указанное кол-во дней, месяцев..
-     * @counts = {years, months, days, hours, minutes, seconds, ms} || date(int)
+     * Shifts iDate for months, days..
+     * @param counts {Object|Float} {years, months, days, hours, minutes, seconds, ms} || days
+     * @return {iDate}
      */
     getShifted: function (counts) {
 
@@ -707,7 +712,7 @@ iDate.prototype = {
 
         if (typeof counts === 'number') {
             counts = {
-                day: counts
+                days: counts
             };
         }
 
@@ -725,8 +730,8 @@ iDate.prototype = {
     },
 
     /**
-     *
-     * @return {Number}
+     * Get day of the week (1..7)
+     * @return {Integer}
      */
     getDayOfWeek: function () {
         return new Date(this.get('year'), this.get('month') - 1, this.get('date')).getDay();
@@ -734,8 +739,7 @@ iDate.prototype = {
 
     /**
      * Check data by mask
-     * @format = null || some kind of 'dd.mm.yyyy HH:MM'
-     * @param format
+     * @param format {null|String} null || some kind of 'dd.mm.yyyy HH:MM'
      * @return {Boolean}
      */
     validate: function (format) {
@@ -771,9 +775,9 @@ iDate.prototype = {
     },
 
     /**
-     * Date is equal
-     * @param date
-     * @param format
+     * Date is equal to
+     * @param date {iDate|*} iDate || iDate parameters
+     * @param format {null|String} null || some kind of 'dd.mm.yyyy HH:MM'
      * @return {Boolean}
      */
     is: function (date, format) {
@@ -811,8 +815,8 @@ iDate.prototype = {
 };
 
 /**
- * Используется для изменения параметров по умолчанию
- * @param attributes {object}
+ * Change iDates prototype
+ * @param attributes {iDate.constructor}
  */
 iDate.extend = function (attributes) {
 

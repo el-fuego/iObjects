@@ -181,7 +181,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2013-4-28' pubdate>2013-4-28 17:15</time>
+			<time datetime='2013-4-28' pubdate>2013-4-28 18:12</time>
 		</footer>
 	</div>
 </div>
@@ -199,7 +199,7 @@
 				
 				<div class="intro">
 					<p class="description summary">
-						
+						iDate
 					</p>
 						
 					
@@ -380,7 +380,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont">iDate.<b><a href="../symbols/iDate.html#.extend">extend</a></b>(attributes)
 													</div>
-													<div class="description">Используется для изменения параметров по умолчанию</div>
+													<div class="description">Change iDates prototype</div>
 												</td>
 											</tr>
 										
@@ -391,7 +391,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#get">get</a></b>(key)
 													</div>
-													<div class="description">get attribute</div>
+													<div class="description">Get attribute</div>
 												</td>
 											</tr>
 										
@@ -402,7 +402,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#getDayOfWeek">getDayOfWeek</a></b>()
 													</div>
-													<div class="description"></div>
+													<div class="description">Get day of the week (1.</div>
 												</td>
 											</tr>
 										
@@ -413,7 +413,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#getDaysInMonth">getDaysInMonth</a></b>(month)
 													</div>
-													<div class="description">возвращает количество дней в месяце</div>
+													<div class="description">Get days count at month</div>
 												</td>
 											</tr>
 										
@@ -424,7 +424,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#getDifference">getDifference</a></b>(date)
 													</div>
-													<div class="description">returns the difference between dates</div>
+													<div class="description">Return the difference between dates</div>
 												</td>
 											</tr>
 										
@@ -446,7 +446,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#getMonthName">getMonthName</a></b>()
 													</div>
-													<div class="description">Получаем название месяца</div>
+													<div class="description">Get month name</div>
 												</td>
 											</tr>
 										
@@ -457,7 +457,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#getShifted">getShifted</a></b>(counts)
 													</div>
-													<div class="description">возвращает iDate + указанное кол-во дней, месяцев.</div>
+													<div class="description">Shifts iDate for months, days.</div>
 												</td>
 											</tr>
 										
@@ -479,7 +479,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#is">is</a></b>(date, format)
 													</div>
-													<div class="description">Date is equal</div>
+													<div class="description">Date is equal to</div>
 												</td>
 											</tr>
 										
@@ -490,7 +490,7 @@
 												<td class="nameDescription">
 													<div class="fixedFont"><b><a href="../symbols/iDate.html#set">set</a></b>(key, val)
 													</div>
-													<div class="description">set attribute</div>
+													<div class="description">Set attribute</div>
 												</td>
 											</tr>
 										
@@ -580,7 +580,7 @@
 							
 							<div class="description">
 								
-								<br /><i>Author: </i>Knyazevich Denis, Pulyaev YuriyCurrency Parser|normalizatorneed:    log.jsuse:        a = new iDate('1.01.2012 12:38')a.toString('dd.mm.yyyy HH:MM:ss.l').
+								
 							</div>
 							
 							
@@ -593,30 +593,11 @@
 											 <b>val</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>{iDate|Number|String|Object}</dd>
 									
 								</dl>
 							
 							
-							
-								<dl class="detailList nomargin">
-									
-									
-									
-									
-									
-									
-									
-										<dt class="heading">Returns:</dt>
-										
-												<dd><span class="light fixedFont">{*}</span> </dd>
-										
-									
-									
-									
-									
-									
-								</dl>
 							
 						</div>
 					</div>
@@ -837,7 +818,7 @@
 														<b>format</b>
 														
 													</dt>
-													<dd>: null || some kind of 'dd.mm.yyyy'</dd>
+													<dd>{String|null} null || some kind of 'dd.mm.yyyy'</dd>
 												
 											</dl>
 										
@@ -881,7 +862,7 @@
 										</div>
 										
 										<div class="description">
-											Используется для изменения параметров по умолчанию
+											Change iDates prototype
 											
 											
 											
@@ -898,7 +879,7 @@
 														<b>attributes</b>
 														
 													</dt>
-													<dd>{object}</dd>
+													<dd>{iDate.constructor}</dd>
 												
 											</dl>
 										
@@ -921,7 +902,7 @@
 										</div>
 										
 										<div class="description">
-											get attribute
+											Get attribute
 											
 											
 											
@@ -938,7 +919,7 @@
 														<b>key</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{String}</dd>
 												
 											</dl>
 										
@@ -976,13 +957,13 @@
 											
 											</span>
 											
-											<span class="light">{Number}</span>
+											<span class="light">{Integer}</span>
 											
 											<b>getDayOfWeek</b>()
 										</div>
 										
 										<div class="description">
-											
+											Get day of the week (1..7)
 											
 											
 											
@@ -1005,7 +986,7 @@
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{Number}</span> </dd>
+														<dd><span class="light fixedFont">{Integer}</span> </dd>
 													
 												
 												
@@ -1026,13 +1007,13 @@
 											
 											</span>
 											
-											
+											<span class="light">{Integer}</span>
 											
 											<b>getDaysInMonth</b>(month)
 										</div>
 										
 										<div class="description">
-											возвращает количество дней в месяце
+											Get days count at month
 											
 											
 											
@@ -1047,49 +1028,9 @@
 												
 													<dt>
 														<b>month</b>
-														
+														<i>Optional</i>
 													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item5'
-									>
-										<div class="fixedFont heading" id="getDifference">
-											<span class='lighter'>
-											
-											</span>
-											
-											<span class="light">{*}</span>
-											
-											<b>getDifference</b>(date)
-										</div>
-										
-										<div class="description">
-											returns the difference between dates
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<b>date</b>
-														
-													</dt>
-													<dd>: {years, months, days, hours, minutes, seconds, ms}</dd>
+													<dd>{Integer} 1-12. default this.get('month')</dd>
 												
 											</dl>
 										
@@ -1106,7 +1047,68 @@
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{*}</span> </dd>
+														<dd><span class="light fixedFont">{Integer}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="getDifference">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{Object}</span>
+											
+											<b>getDifference</b>(date)
+										</div>
+										
+										<div class="description">
+											Return the difference between dates
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>date</b>
+														
+													</dt>
+													<dd>{iDate|*} iDate || iDate parameters</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Object}</span> {years, months, days, hours, minutes, seconds, ms}</dd>
 													
 												
 												
@@ -1127,7 +1129,7 @@
 											
 											</span>
 											
-											<span class="light">{Date}</span>
+											<span class="light">{Integer}</span>
 											
 											<b>getMilliseconds</b>()
 										</div>
@@ -1156,7 +1158,7 @@
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{Date}</span> </dd>
+														<dd><span class="light fixedFont">{Integer}</span> </dd>
 													
 												
 												
@@ -1183,7 +1185,7 @@
 										</div>
 										
 										<div class="description">
-											Получаем название месяца
+											Get month name
 											
 											
 											
@@ -1227,13 +1229,13 @@
 											
 											</span>
 											
-											
+											<span class="light">{<a href="../symbols/iDate.html">iDate</a>}</span>
 											
 											<b>getShifted</b>(counts)
 										</div>
 										
 										<div class="description">
-											возвращает iDate + указанное кол-во дней, месяцев..
+											Shifts iDate for months, days..
 											
 											
 											
@@ -1250,11 +1252,32 @@
 														<b>counts</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{Object|Float} {years, months, days, hours, minutes, seconds, ms} || days</dd>
 												
 											</dl>
 										
 										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/iDate.html">iDate</a>}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
 										
 										<div class="hr"></div>
 									</li>
@@ -1267,7 +1290,7 @@
 											
 											</span>
 											
-											<span class="light">{*}</span>
+											<span class="light">{Float}</span>
 											
 											<b>getUnitDifference</b>(date, units)
 										</div>
@@ -1290,13 +1313,13 @@
 														<b>date</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{iDate|*} iDate || iDate parameters</dd>
 												
 													<dt>
 														<b>units</b>
 														
 													</dt>
-													<dd>: "years" || "months" || "days" || "hours" || "minutes" || "seconds" || "ms"</dd>
+													<dd>{String} "years" || "months" || "days" || "hours" || "minutes" || "seconds" || "ms". Default "days"</dd>
 												
 											</dl>
 										
@@ -1313,7 +1336,7 @@
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{*}</span> </dd>
+														<dd><span class="light fixedFont">{Float}</span> </dd>
 													
 												
 												
@@ -1340,7 +1363,7 @@
 										</div>
 										
 										<div class="description">
-											Date is equal
+											Date is equal to
 											
 											
 											
@@ -1357,13 +1380,13 @@
 														<b>date</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{iDate|*} iDate || iDate parameters</dd>
 												
 													<dt>
 														<b>format</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{null|String} null || some kind of 'dd.mm.yyyy HH:MM'</dd>
 												
 											</dl>
 										
@@ -1401,13 +1424,13 @@
 											
 											</span>
 											
-											<span class="light">{Boolean}</span>
+											<span class="light">{*}</span>
 											
 											<b>set</b>(key, val)
 										</div>
 										
 										<div class="description">
-											set attribute
+											Set attribute
 											
 											
 											
@@ -1424,13 +1447,13 @@
 														<b>key</b>
 														
 													</dt>
-													<dd>: '' || {key: val}</dd>
+													<dd>{String|Object} '' || {key: val}</dd>
 												
 													<dt>
 														<b>val</b>
-														
+														<i>Optional</i>
 													</dt>
-													<dd></dd>
+													<dd>{*}</dd>
 												
 											</dl>
 										
@@ -1447,7 +1470,7 @@
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{Boolean}</span> </dd>
+														<dd><span class="light fixedFont">{*}</span> </dd>
 													
 												
 												
@@ -1491,7 +1514,7 @@
 														<b>format</b>
 														
 													</dt>
-													<dd>null || some kind of 'HH:MM:ss.l'</dd>
+													<dd>{String|null} null || some kind of 'HH:MM:ss.l'</dd>
 												
 											</dl>
 										
@@ -1652,7 +1675,7 @@
 														<b>format</b>
 														
 													</dt>
-													<dd>: null || some kind of 'dd.mm.yyyy HH:MM'</dd>
+													<dd>{String|null} null || some kind of 'dd.mm.yyyy HH:MM'</dd>
 												
 											</dl>
 										
@@ -1713,7 +1736,7 @@
 														<b>format</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>{null|String} null || some kind of 'dd.mm.yyyy HH:MM'</dd>
 												
 											</dl>
 										
