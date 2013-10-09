@@ -2,11 +2,11 @@
 
 <b>Объекты для повседневной работы с датами, периодами, номерами карт/счетов, валютами и тд.</b>
 <ul>
-<li>new <b>iDate</b>("30.01.2012")</li>
-<li>new <b>iPeriod</b>("today-tomorrow")</li>
-<li>new <b>iAccount</b>("1234 1234 1234 1234")</li>
-<li>new <b>iCurrency</b>("usd")</li>
-<li>new <b>iMoney</b>("1234.01")</li>
+<li>new <b>IDate</b>("30.01.2012")</li>
+<li>new <b>IPeriod</b>("today-tomorrow")</li>
+<li>new <b>IAccount</b>("1234 1234 1234 1234")</li>
+<li>new <b>ICurrency</b>("usd")</li>
+<li>new <b>IMoney</b>("1234.01")</li>
 </ul>
 
 
