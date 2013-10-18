@@ -328,5 +328,5 @@
         return this.validate();
     };
 
-    root.isAccount = IAccount;
+    root.IAccount = IAccount;
 }(this));
