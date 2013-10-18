@@ -2,7 +2,7 @@
     "use strict";
 
     /**
-     * need: iDate, jQuery
+     * need: IDate, jQuery
      * @args:
      *  [IPeriod]
      *  [startDate, days]
@@ -32,13 +32,13 @@
          */
         if (args[0] instanceof IPeriod) {
 
-            this.attributes.start = new iDate(args[0].attributes.start);
-            this.attributes.end = new iDate(args[0].attributes.end);
+            this.attributes.start = new IDate(args[0].attributes.start);
+            this.attributes.end = new IDate(args[0].attributes.end);
 
         } else if (args.length == 2 && typeof args[1] === 'number') {
 
             // установим начальную дату из первого аргумента
-            this.attributes.start = new iDate(args[0]);
+            this.attributes.start = new IDate(args[0]);
 
             // конечная = начальная + указанное кол-во дней
             this.attributes.end = this.attributes.start.getShifted({days: args[1]});
@@ -53,18 +53,18 @@
 
                 var periodArr = args[0].replace(/\s*/g, '').split(this.separator);
 
-                this.attributes.start = new iDate(periodArr[0]);
-                this.attributes.end = new iDate(periodArr[1] || 'today');
+                this.attributes.start = new IDate(periodArr[0]);
+                this.attributes.end = new IDate(periodArr[1] || 'today');
 
             } else {
                 if (typeof args[0] === 'string' || (typeof args[0] === 'object' && !(args[0] instanceof Array))) {
 
-                    this.attributes.start = new iDate(args[0]);
-                    this.attributes.end = new iDate(args[1] || 'today');
+                    this.attributes.start = new IDate(args[0]);
+                    this.attributes.end = new IDate(args[1] || 'today');
 
                 } else if (args.length == 1 && typeof args[0] === 'number') {
 
-                    this.attributes.start = new iDate('today');
+                    this.attributes.start = new IDate('today');
 
                     this.attributes.end = this.attributes.start.getShifted({
                         days: args[0]
