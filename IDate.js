@@ -837,12 +837,12 @@
             }
 
             shifted._setDate(
-                new Date(this.get('year') + (counts.years || 0),
-                    this.get('month') + (counts.months || 0) - 1,
-                    this.get('date') + (counts.days || 0),
-                    this.get('hours') + (counts.hours || 0),
-                    this.get('minutes') + (counts.minutes || 0),
-                    this.get('seconds') + (counts.seconds || 0),
+                new Date(this.get('year') + (counts.years || counts.year || 0),
+                    this.get('month') + (counts.months || counts.month || 0) - 1,
+                    this.get('date') + (counts.days || counts.day || 0),
+                    this.get('hours') + (counts.hours || counts.hour || 0),
+                    this.get('minutes') + (counts.minutes || counts.minute || 0),
+                    this.get('seconds') + (counts.seconds || counts.second || 0),
                     this.get('ms') + (counts.ms || 0))
             );
 
