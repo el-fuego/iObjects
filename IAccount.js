@@ -218,7 +218,7 @@
          * @return {Boolean}
          */
         isVisa: function () {
-            return (this.value && [5, 6].indexOf(+this.value.substr(0, 1)) >= 0);
+            return !!(this.value && +this.value.substr(0, 1) == 4);
         },
 
         /**
@@ -226,7 +226,7 @@
          * @return {Boolean}
          */
         isMasterCard: function () {
-            return (this.value && +this.value.substr(0, 1) != 4);
+            return !!(this.value && [5, 6].indexOf(+this.value.substr(0, 1)) >= 0);
         },
 
         /**
