@@ -47,125 +47,7 @@
          * @constructor
          */
         IDate = function (value) {
-            /**
-             * parse date and time
-             */
-            var parsedDate = false,
-                parsedTime = false,
-                i,
-                attr,
-                l,
-                someDate,
-                date = new Date(),
-                today = new Date(),
-                dateType;
-
-            this.attributes = clone(this.defaults);
-
-            if (value === undefined) {
-                this._setDate(date);
-            } else if (typeof value === 'object' && value instanceof IDate) {
-                /**
-                 * IDate
-                 */
-                this.attributes = clone(value.attributes);
-            } else if (typeof value === 'object' && value !== null) {
-                /**
-                 * shift parameters
-                 */
-                dateType = value.hours || value.minutes || value.seconds || value.ms ? 'now' : 'today';
-
-                this.attributes = clone((new IDate(dateType)).getShifted(value).attributes);
-            } else if (typeof value === 'number') {
-                // milliseconds
-                if (value > 60 * 60 * 24 * 1000) {
-                    date = new Date(value);
-                } else {
-                    // days
-                    date = new Date(+(new Date()) + value * 60 * 60 * 24 * 1000);
-                    date.setHours(0);
-                    date.setMinutes(0);
-                    date.setSeconds(0);
-                    date.setMilliseconds(0);
-                }
-                this._setDate(date);
-
-            } else if (value === 'today' || value === 'tomorrow' || value === 'yesterday' || value === 'now') {
-                /**
-                 * string
-                 */
-                today = new Date();
-
-                if (value === 'tomorrow') {
-                    date = new Date(
-                        today.getFullYear(),
-                        today.getMonth(),
-                        today.getDate() + 1,
-                        0,
-                        0,
-                        0,
-                        0
-                    );
-                } else if (value === 'yesterday') {
-                    date = new Date(
-                        today.getFullYear(),
-                        today.getMonth(),
-                        today.getDate() - 1,
-                        0,
-                        0,
-                        0,
-                        0
-                    );
-                } else if (value === 'today') {
-                    date = new Date(
-                        today.getFullYear(),
-                        today.getMonth(),
-                        today.getDate(),
-                        0,
-                        0,
-                        0,
-                        0
-                    );
-                }
-
-                this._setDate(date);
-            } else if (value instanceof Date) {
-                this._setDate(value);
-            } else if (typeof value === 'string') {
-                for (i = 0, l = this.parsers.date.length; i < l && !parsedDate && this.parsers.date[i]; i++) {
-                    parsedDate = this.parsers.date[i].call(this, value);
-                }
-
-                for (i = 0, l = this.parsers.time.length; i < l && !parsedTime; i++) {
-                    parsedTime = this.parsers.time[i].call(this, value);
-                }
-
-                /**
-                 * check date, f.e. 31.02.1991
-                 * @type {Date}
-                 */
-                someDate = new Date(
-                    this.attributes.year.value,
-                    (this.attributes.month.value || 1) - 1,
-                    this.attributes.date.value || 1
-                );
-
-                if (
-                    (
-                        someDate.getDate() != (this.attributes.date.value || 1)
-                    ) || (
-                        someDate.getMonth() + 1 != (this.attributes.month.value || 1)
-                    ) || (
-                        someDate.getFullYear() != this.attributes.year.value
-                    )
-                ) {
-                    for (attr in this.attributes) {
-                        if (this.attributes.hasOwnProperty(attr) && this.attributes[attr].value != null) {
-                            this.attributes[attr].value = null;
-                        }
-                    }
-                }
-            }
+            this._init && this._init.apply(this, arguments);
 
             return this;
         };
@@ -448,6 +330,129 @@
                 '10': /окт[а-я]*|жов[а-я]*|oct[a-z]*/i,
                 '11': /ноя[а-я]*|лис[а-я]*|nov[a-z]*/i,
                 '12': /дек[а-я]*|гру[а-я]*|dec[a-z]*/i
+            },
+
+            _init: function (value) {
+                /**
+                 * parse date and time
+                 */
+                var parsedDate = false,
+                    parsedTime = false,
+                    i,
+                    attr,
+                    l,
+                    someDate,
+                    date = new Date(),
+                    today = new Date(),
+                    dateType;
+
+                this.attributes = clone(this.defaults);
+
+                if (value === undefined) {
+                    this._setDate(date);
+                } else if (typeof value === 'object' && value instanceof IDate) {
+                    /**
+                     * IDate
+                     */
+                    this.attributes = clone(value.attributes);
+                } else if (typeof value === 'object' && value !== null) {
+                    /**
+                     * shift parameters
+                     */
+                    dateType = value.hours || value.minutes || value.seconds || value.ms ? 'now' : 'today';
+
+                    this.attributes = clone((new IDate(dateType)).getShifted(value).attributes);
+                } else if (typeof value === 'number') {
+                    // milliseconds
+                    if (value > 60 * 60 * 24 * 1000) {
+                        date = new Date(value);
+                    } else {
+                        // days
+                        date = new Date(+(new Date()) + value * 60 * 60 * 24 * 1000);
+                        date.setHours(0);
+                        date.setMinutes(0);
+                        date.setSeconds(0);
+                        date.setMilliseconds(0);
+                    }
+                    this._setDate(date);
+
+                } else if (value === 'today' || value === 'tomorrow' || value === 'yesterday' || value === 'now') {
+                    /**
+                     * string
+                     */
+                    today = new Date();
+
+                    if (value === 'tomorrow') {
+                        date = new Date(
+                            today.getFullYear(),
+                            today.getMonth(),
+                            today.getDate() + 1,
+                            0,
+                            0,
+                            0,
+                            0
+                        );
+                    } else if (value === 'yesterday') {
+                        date = new Date(
+                            today.getFullYear(),
+                            today.getMonth(),
+                            today.getDate() - 1,
+                            0,
+                            0,
+                            0,
+                            0
+                        );
+                    } else if (value === 'today') {
+                        date = new Date(
+                            today.getFullYear(),
+                            today.getMonth(),
+                            today.getDate(),
+                            0,
+                            0,
+                            0,
+                            0
+                        );
+                    }
+
+                    this._setDate(date);
+                } else if (value instanceof Date) {
+                    this._setDate(value);
+                } else if (typeof value === 'string') {
+                    for (i = 0, l = this.parsers.date.length; i < l && !parsedDate && this.parsers.date[i]; i++) {
+                        parsedDate = this.parsers.date[i].call(this, value);
+                    }
+
+                    for (i = 0, l = this.parsers.time.length; i < l && !parsedTime; i++) {
+                        parsedTime = this.parsers.time[i].call(this, value);
+                    }
+
+                    /**
+                     * check date, f.e. 31.02.1991
+                     * @type {Date}
+                     */
+                    someDate = new Date(
+                        this.attributes.year.value,
+                        (this.attributes.month.value || 1) - 1,
+                        this.attributes.date.value || 1
+                    );
+
+                    if (
+                        (
+                            someDate.getDate() != (this.attributes.date.value || 1)
+                            ) || (
+                            someDate.getMonth() + 1 != (this.attributes.month.value || 1)
+                            ) || (
+                            someDate.getFullYear() != this.attributes.year.value
+                            )
+                        ) {
+                        for (attr in this.attributes) {
+                            if (this.attributes.hasOwnProperty(attr) && this.attributes[attr].value != null) {
+                                this.attributes[attr].value = null;
+                            }
+                        }
+                    }
+                }
+                return this;
             },
 
             /**
