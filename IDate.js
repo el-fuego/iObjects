@@ -969,7 +969,11 @@
      * @param attributes {*}
      */
     IDate.extend = function (attributes) {
-        var Child = function () {},
+        var Child = function () {
+                this._init && this._init.apply(this, arguments);
+
+                return this;
+            },
             F = function () {};
 
         F.prototype = this.prototype;
