@@ -153,6 +153,7 @@
         _toDefaults: function () {
             this._phone = "";
             this.value = "";
+            this._isDefault = true;
         },
 
         /**
@@ -162,6 +163,7 @@
          */
         _parse: function (number, options) {
             this._phone = "";
+            this._isDefault = !number;
             options = options || {};
 
             if (number instanceof IPhone) {
@@ -372,7 +374,7 @@
          * Is default value
          */
         isDefault: function () {
-            return !this._phone;
+            return !!this._isDefault;
         },
 
         /**
