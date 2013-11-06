@@ -177,7 +177,7 @@
                     number = "+38" + number;
                 }
 
-                number = this._normalizeNumber((number || '').replace(/\s+/g, '').replace(/\-/g, ''));
+                number = this._normalizeNumber(number || '');
 
                 if (this._masks.fullAllFormat.test(number)) {
                     this._phone = number;
@@ -202,7 +202,11 @@
          * @private
          */
         _normalizeNumber: function (number) {
-            return "+" + (number || "").replace(/^\+/, '');
+            if (!number) {
+                return "";
+            }
+
+            return "+" + number.replace(/^\+/, '').replace(/[\s\-\(\)]+/g, '');
         },
 
         /**
