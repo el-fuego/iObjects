@@ -123,9 +123,9 @@
         /**
          * attributes for info
          */
-        "float": 0,
-        "int": 0,
-        kopeks: 0,
+        "float": null,
+        "int": null,
+        kopeks: null,
         kopeksPointer: '.',
         thousandPointer: ' ',
         htmlTag: 'small',
