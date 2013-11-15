@@ -268,24 +268,20 @@
             var sum = 0,
                 i,
                 mod,
+                deltaIndex,
                 delta = [0, 1, 2, 3, 4, -4, -3, -2, -1, 0];
 
             for (i = 0; i < str.length; i++) {
-                sum += parseInt(str.substring(i, i + 1), 10);
+                sum += parseInt(str.substring(i, i + 1));
             }
-
             for (i = str.length - 1; i >= 0; i -= 2) {
-                var deltaIndex = parseInt(str.substring(i, i + 1), 10);
+                deltaIndex = parseInt(str.substring(i, i + 1));
                 sum += delta[deltaIndex];
             }
-
-            mod = sum % 10;
-            mod = 10 - mod;
-
+            mod = 10 - (sum % 10);
             if (mod == 10) {
                 mod = 0;
             }
-
             return mod;
         },
 
@@ -296,10 +292,11 @@
          * @private
          */
         _luhnValidate: function (number) {
-            var digit = parseInt(number.substring(number.length - 1, number.length), 10),
-                less = number.substring(0, number.length - 1);
+            var len = number.length,
+                digit = parseInt(number.substring(len - 1, len)),
+                less = number.substring(0, len - 1);
 
-            return (this._luhnCalculate(less) == parseInt(digit, 10));
+            return (this._luhnCalculate(less) == parseInt(digit));
         },
 
         /**
