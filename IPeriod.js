@@ -251,6 +251,51 @@
                     this.attributes.end.getMilliseconds() - this.attributes.start.getMilliseconds()
                 ) / (1000 * 60 * 60 * 24)
             );
+        },
+
+        /**
+         * период c начала текущего месяца по сегодня
+         * если сегодняшняя дата меньше 10, захватываем и предыдущий месяц
+         * @returns {IPeriod}
+         */
+        getPeriodFromMonthStartToToday: function () {
+            return new IPeriod(
+                (new IDate('today')).get('date') > 10 ? new IDate({ days: 1 - (new IDate()).get('date') }) : (new IDate({months: -1})).set({date: 1}),
+                'today'
+            );
+        },
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        isMonthPeriod: function () {
+            return this.attributes.start.attributes.date.val === 1 && this.hasSameMonths() && this.hasSameYears() &&
+                this.getUnitDifference('days') === this.attributes.start.getDaysInMonth() - 1;
+        },
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        hasSameDates: function () {
+            return this.attributes.start.attributes.date.val === this.attributes.end.attributes.date.val;
+        },
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        hasSameMonths: function () {
+            return this.attributes.start.attributes.month.val === this.attributes.end.attributes.month.val;
+        },
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        hasSameYears: function () {
+            return this.attributes.start.attributes.year.val === this.attributes.end.attributes.year.val;
         }
     };
 
