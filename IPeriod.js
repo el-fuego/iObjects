@@ -270,7 +270,7 @@
          * @returns {boolean}
          */
         isMonthPeriod: function () {
-            return this.attributes.start.attributes.date.val === 1 && this.hasSameMonths() && this.hasSameYears() &&
+            return this.attributes.start.attributes.date.value === 1 && this.hasSameMonths() && this.hasSameYears() &&
                 this.getUnitDifference('days') === this.attributes.start.getDaysInMonth() - 1;
         },
 
@@ -279,7 +279,7 @@
          * @returns {boolean}
          */
         hasSameDates: function () {
-            return this.attributes.start.attributes.date.val === this.attributes.end.attributes.date.val;
+            return this.attributes.start.attributes.date.value === this.attributes.end.attributes.date.value;
         },
 
         /**
@@ -287,7 +287,7 @@
          * @returns {boolean}
          */
         hasSameMonths: function () {
-            return this.attributes.start.attributes.month.val === this.attributes.end.attributes.month.val;
+            return this.attributes.start.attributes.month.value === this.attributes.end.attributes.month.value;
         },
 
         /**
@@ -295,7 +295,7 @@
          * @returns {boolean}
          */
         hasSameYears: function () {
-            return this.attributes.start.attributes.year.val === this.attributes.end.attributes.year.val;
+            return this.attributes.start.attributes.year.value === this.attributes.end.attributes.year.value;
         }
     };
 

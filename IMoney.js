@@ -18,11 +18,6 @@
                 factor,
                 isNegative;
 
-            if (val == null || val === "") {
-
-                return this;
-            }
-
             if (val instanceof IMoney) {
                 this[floatKey] = val[floatKey];
                 this[intKey] = val[intKey];
@@ -32,7 +27,10 @@
                 return this;
             }
 
-            if (typeof val === 'number') {
+            if (val == null || val === "") {
+
+                this._setAttributesByFloat(0);
+            } else if (typeof val === 'number') {
 
                 this._setAttributesByFloat(val);
 
