@@ -533,5 +533,9 @@
         }
     };
 
-    root.IPhone = IPhone;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IPhone;
+    } else {
+        root.IPhone = IPhone;
+    }
 }(this));

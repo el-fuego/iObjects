@@ -54,5 +54,9 @@
         }
     };
 
-    root.ICVV = ICVV;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = ICVV;
+    } else {
+        root.ICVV = ICVV;
+    }
 }(this));

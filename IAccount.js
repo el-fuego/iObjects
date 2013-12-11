@@ -210,7 +210,7 @@
          * @return {Boolean}
          */
         isCard: function () {
-            return this._luhnValidate(this.value);
+            return this.luhnValidate(this.value);
         },
 
         /**
@@ -291,7 +291,7 @@
          * @returns {boolean}
          * @private
          */
-        _luhnValidate: function (number) {
+        luhnValidate: function (number) {
             var len = number.length,
                 digit = parseInt(number.substring(len - 1, len)),
                 less = number.substring(0, len - 1);
@@ -325,5 +325,9 @@
         return this.validate();
     };
 
-    root.IAccount = IAccount;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IAccount;
+    } else {
+        root.IAccount = IAccount;
+    }
 }(this));

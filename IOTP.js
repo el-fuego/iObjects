@@ -79,5 +79,9 @@
         }
     };
 
-    root.IOTP = IOTP;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IOTP;
+    } else {
+        root.IOTP = IOTP;
+    }
 }(this));

@@ -985,5 +985,9 @@
         return Child;
     };
 
-    root.IDate = IDate;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IDate;
+    } else {
+        root.IDate = IDate;
+    }
 }(this));

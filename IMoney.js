@@ -374,5 +374,9 @@
         }
     };
 
-    root.IMoney = IMoney;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IMoney;
+    } else {
+        root.IMoney = IMoney;
+    }
 }(this));

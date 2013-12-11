@@ -73,5 +73,10 @@
             return "<span>" + this.toString() + "</span>";
         }
     };
-    root.IEmail = IEmail;
+
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IEmail;
+    } else {
+        root.IEmail = IEmail;
+    }
 }(this));

@@ -299,5 +299,9 @@
         }
     };
 
-    root.IPeriod = IPeriod;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = IPeriod;
+    } else {
+        root.IPeriod = IPeriod;
+    }
 }(this));

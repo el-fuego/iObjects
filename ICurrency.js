@@ -219,5 +219,9 @@
         }
     };
 
-    root.ICurrency = ICurrency;
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = ICurrency;
+    } else {
+        root.ICurrency = ICurrency;
+    }
 }(this));
