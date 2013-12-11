@@ -210,7 +210,7 @@
          * @return {Boolean}
          */
         isCard: function () {
-            return this.luhnValidate(this.value);
+            return this.luhnValidate();
         },
 
         /**
@@ -292,6 +292,8 @@
          * @private
          */
         luhnValidate: function (number) {
+            number = number || this.value || "";
+
             var len = number.length,
                 digit = parseInt(number.substring(len - 1, len)),
                 less = number.substring(0, len - 1);
