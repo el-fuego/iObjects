@@ -350,7 +350,10 @@
 
             this.attributes = clone(this.defaults);
 
-            if (value === undefined) {
+            /**
+             * null or undefined
+             */
+            if (value == undefined) {
                 this._setDate(date);
             } else if (typeof value === 'object' && value instanceof IDate) {
                 /**
