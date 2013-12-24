@@ -30,6 +30,7 @@
             if (val == null || val === "") {
 
                 this._setAttributesByFloat(0);
+                this._isDefault = true;
             } else if (typeof val === 'number') {
 
                 this._setAttributesByFloat(val);
