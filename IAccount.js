@@ -51,6 +51,13 @@
         splitter: '<span>',
 
         /**
+         * @returns {boolean}
+         */
+        isDefault: function () {
+            return this.value == null;
+        },
+
+        /**
          * add ' ' every [num] digits
          * @param str
          * @param splitter
