@@ -50,10 +50,13 @@
                  */
                 len = factors.length,
                 factor,
+                lastDigit,
                 modulo,
                 value = this.value;
 
             if (!isNaN(value)) {
+                lastDigit = value[value.length - 1];
+
                 for (i = 0; i < len; i++) {
                     if (value > lowerLimit && value < upperLimit) {
                         factor = factors[i];
@@ -66,7 +69,7 @@
 
                 modulo = sum % 11;
 
-                if (modulo >= 10) {
+                if (modulo > 10) {
                     sum = 0;
 
                     for (i = 0; i < len; i++) {
@@ -82,11 +85,15 @@
                     modulo = sum % 11;
                 }
 
-                /**
-                 * @description Результат деления должен совпадать с последней цифрой
-                 * @type {boolean}
-                 */
-                result = modulo == value[value.length - 1];
+                if (modulo == 10) {
+                    result = lastDigit == 0;
+                } else {
+                    /**
+                     * @description Результат деления должен совпадать с последней цифрой
+                     * @type {boolean}
+                     */
+                    result = modulo == lastDigit;
+                }
             }
 
             return result;
