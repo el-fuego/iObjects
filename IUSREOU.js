@@ -6,6 +6,9 @@
      * @param code {string|number}
      */
     var IUSREOU = function (code) {
+        var len,
+            i;
+
         if (code instanceof IUSREOU) {
             this.value = code.value;
         } else {
@@ -14,6 +17,17 @@
              * @type {string}
              */
             this.value = String(code).replace(/\s+/g, '');
+            len = this.value.length;
+
+            /**
+             * Если код не пустой, содержит не только 0 и меньшей длинны, чем минимальная, то добавим
+             * вначало необходимое кол-во 0.
+             */
+            if (len && this.value != 0 && len < this.options.minLength) {
+                for (i = this.options.minLength - len; i > 0; i--) {
+                    this.value = "0" + this.value;
+                }
+            }
         }
 
         if (!this.validate()) {
@@ -25,6 +39,7 @@
         value: null,
 
         options: {
+            minLength: 8,
             checkSum: {
                 factors: [7, 1, 2, 3, 4, 5, 6],
                 lowerLimit: 30000000,
@@ -104,7 +119,16 @@
          * @returns {boolean}
          */
         validate: function () {
-            return !!(this.value && (/^[0-9]{8}$/).test(this.value) && this._isValidCheckSum());
+            return !!(
+                this.value &&
+                    (/^[0-9]+$/).test(this.value) &&
+
+                    /**
+                     * все нули
+                     */
+                    +this.value != 0 &&
+                    this._isValidCheckSum()
+            );
         },
 
         /**
