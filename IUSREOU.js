@@ -86,7 +86,7 @@
                 }
 
                 if (modulo == 10) {
-                    result = lastDigit == 0;
+                    result = true;
                 } else {
                     /**
                      * @description Результат деления должен совпадать с последней цифрой
