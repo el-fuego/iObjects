@@ -40,6 +40,7 @@
 
         options: {
             minLength: 8,
+            maxLengthForValidateCheckSum: 8,
             checkSum: {
                 factors: [7, 1, 2, 3, 4, 5, 6],
                 lowerLimit: 30000000,
@@ -127,7 +128,13 @@
                      * все нули
                      */
                     +this.value != 0 &&
-                    this._isValidCheckSum()
+                    (
+                        /**
+                         * валидируем по контрольной сумме только значение с длинной maxLengthForValidateCheckSum
+                         */
+                        this.value.length > this.options.maxLengthForValidateCheckSum ||
+                        this._isValidCheckSum()
+                    )
             );
         },
 
