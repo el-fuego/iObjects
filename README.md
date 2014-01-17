@@ -6,7 +6,7 @@
 <li>new <b>IPeriod</b>("today-tomorrow")</li>
 <li>new <b>IAccount</b>("1234 1234 1234 1234")</li>
 <li>new <b>ICurrency</b>("usd")</li>
-<li>new <b>IMoney</b>("1234.01")</li>
+<li>new <b>INumber</b>("1234.01")</li>
 </ul>
 
 

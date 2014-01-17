@@ -1,27 +1,27 @@
 (function (root, undefined) {
     var floatKey = "float",
         intKey = "int",
-        kopeksKey = "kopeks",
+        fractionKey = "fraction",
 
         /**
          * @author Knyazevich Denis, Pulyaev Yuriy
-         * Money Parser|normalizator
+         * Number Parser|normalizator
          * need:    log.js
-         * use:        a = new IMoney('1.02')
+         * use:        a = new INumber('1.02')
          * a.toString()
          * @param val
-         * @param kopeksPointer
+         * @param fractionPointer
          * @return {*}
          */
-        IMoney = function (val, kopeksPointer) {
+        INumber = function (val, fractionPointer) {
             var arr,
                 factor,
                 isNegative;
 
-            if (val instanceof IMoney) {
+            if (val instanceof INumber) {
                 this[floatKey] = val[floatKey];
                 this[intKey] = val[intKey];
-                this[kopeksKey] = val[kopeksKey];
+                this[fractionKey] = val[fractionKey];
                 this._isDefault = false;
 
                 return this;
@@ -45,9 +45,9 @@
                 /**
                  * use pointer from params if getted
                  */
-                if (typeof kopeksPointer === 'string') {
+                if (typeof fractionPointer === 'string') {
 
-                    arr = val.split(kopeksPointer);
+                    arr = val.split(fractionPointer);
 
                     /**
                      * default pointer
@@ -70,7 +70,7 @@
                 }
 
                 /**
-                 * without kopeks
+                 * without fraction
                  */
                 if (!arr || arr.length !== 2) {
                     arr = [val, '0'];
@@ -117,28 +117,28 @@
             return this;
         };
 
-    IMoney.prototype = {
+    INumber.prototype = {
 
         /**
          * attributes for info
          */
         "float": null,
         "int": null,
-        kopeks: null,
-        kopeksPointer: '.',
+        fraction: null,
+        fractionPointer: '.',
         thousandPointer: ' ',
         htmlTag: 'small',
         _isDefault: true,
 
         /**
-         * set float, int, kopeks by float value
+         * set float, int, fraction by float value
          * @param num
          * @private
          */
         _setAttributesByFloat: function (num) {
             this[floatKey] = num || 0;
             this[intKey] = parseInt(num, 10) || 0;
-            this[kopeksKey] = Math.abs(Math.round((this[floatKey] - this[intKey]) * 100)) || 0;
+            this[fractionKey] = Math.abs(Math.round((this[floatKey] - this[intKey]) * 100)) || 0;
             this._isDefault = false;
 
             return this;
@@ -163,16 +163,16 @@
         },
 
         /**
-         * Get full money string
-         * @param kopeksPointer : null || '.'
+         * Get full number string
+         * @param fractionPointer : null || '.'
          * @param thousandPointer : null || ' '
          * @param shortFormat : null || true || false
          * @param toFixed : if true, return 1 522 from 1522.00
          * @param toABS : false return 1.00 from -1.00
          * @return {String}
          */
-        toString: function (kopeksPointer, thousandPointer, shortFormat, toFixed, toABS) {
-            var kopeksStr,
+        toString: function (fractionPointer, thousandPointer, shortFormat, toFixed, toABS) {
+            var fractionStr,
                 intStr,
                 /**
                  * insert to array every 3 digits
@@ -185,8 +185,8 @@
             /**
              * set default pointers
              */
-            if (typeof kopeksPointer !== 'string') {
-                kopeksPointer = this.kopeksPointer;
+            if (typeof fractionPointer !== 'string') {
+                fractionPointer = this.fractionPointer;
             }
 
             if (typeof thousandPointer !== 'string') {
@@ -198,13 +198,13 @@
             }
 
             /**
-             * add zeros to kopeks
+             * add zeros to fraction
              * @type {*|String}
              */
-            kopeksStr = (toFixed > 2) ? (this[floatKey] || 0).toFixed(toFixed).toString().split('.')[1] || '0' : (this[kopeksKey] || 0).toString();
+            fractionStr = (toFixed > 2) ? (this[floatKey] || 0).toFixed(toFixed).toString().split('.')[1] || '0' : (this[fractionKey] || 0).toString();
 
-            while (kopeksStr.length < 2) {
-                kopeksStr = '0' + kopeksStr;
+            while (fractionStr.length < 2) {
+                fractionStr = '0' + fractionStr;
             }
 
             /**
@@ -228,13 +228,13 @@
                 }
             }
 
-            return ((this.isNegative() && !toABS) ? '- ' : '') + intArr.join(thousandPointer) + (shortFormat && !this[kopeksKey] ? '' : kopeksPointer + kopeksStr);
+            return ((this.isNegative() && !toABS) ? '- ' : '') + intArr.join(thousandPointer) + (shortFormat && !this[fractionKey] ? '' : fractionPointer + fractionStr);
         },
 
 
         /**
-         * Get full money string with <htmlTag> in kopeks
-         * @param kopeksPointer : null || '.'
+         * Get full number string with <htmlTag> in fraction
+         * @param fractionPointer : null || '.'
          * @param thousandPointer : null || ' '
          * @param htmlTag : null || 'tagName'
          * @param shortFormat : null || true || false
@@ -242,14 +242,14 @@
          * @param toABS return 1.00 from -1.00
          * @return {String}
          */
-        toHtml: function (kopeksPointer, thousandPointer, htmlTag, shortFormat, toFixed, toABS) {
+        toHtml: function (fractionPointer, thousandPointer, htmlTag, shortFormat, toFixed, toABS) {
             var arr;
 
             /**
              * set default pointers
              */
-            if (typeof kopeksPointer !== 'string') {
-                kopeksPointer = this.kopeksPointer;
+            if (typeof fractionPointer !== 'string') {
+                fractionPointer = this.fractionPointer;
             }
 
             if (typeof thousandPointer !== 'string') {
@@ -265,18 +265,18 @@
             }
 
             /**
-             * split to [amount, kopeks]
+             * split to [amount, fraction]
              * @type {Array}
              */
-            arr = this.toString(kopeksPointer, thousandPointer, shortFormat, toFixed, toABS).replace(/ /g, '&nbsp;').split(kopeksPointer);
+            arr = this.toString(fractionPointer, thousandPointer, shortFormat, toFixed, toABS).replace(/ /g, '&nbsp;').split(fractionPointer);
 
             /**
-             * add tag to kopeks
+             * add tag to fraction
              * @type {String}
              */
             arr[1] = '<' + htmlTag + '>' + arr[1] + '</' + htmlTag + '>';
 
-            return arr.join(kopeksPointer);
+            return arr.join(fractionPointer);
         },
 
         /**
@@ -321,18 +321,18 @@
 
         /**
          *
-         * @returns {IMoney}
+         * @returns {INumber}
          */
         getAbs: function () {
-            return new IMoney(Math.abs(this.toFloat()));
+            return new INumber(Math.abs(this.toFloat()));
         },
 
         /**
          *
-         * @returns {IMoney}
+         * @returns {INumber}
          */
         getInverted: function () {
-            return new IMoney(-1 * this.toFloat());
+            return new INumber(-1 * this.toFloat());
         },
 
         /**
@@ -369,15 +369,15 @@
          * @returns {boolean}
          */
         is: function (value) {
-            var obj = new IMoney(value);
+            var obj = new INumber(value);
 
             return this.toFloat() == obj.toFloat();
         }
     };
 
     if (typeof module !== "undefined" && module.exports) {
-        module.exports = IMoney;
+        module.exports = INumber;
     } else {
-        root.IMoney = IMoney;
+        root.INumber = INumber;
     }
 }(this));
