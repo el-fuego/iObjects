@@ -506,7 +506,7 @@
          * @returns {string}
          */
         toString: function (format) {
-            if (format == 'short') {
+            if (format === 'short') {
                 return this.toShortFormat();
             }
 
@@ -515,10 +515,24 @@
 
         /**
          *
-         * @returns {string}
+         * @param format
          */
-        toHtml: function () {
-            return "<span>" + this.toString.apply(this, arguments) + "</span>";
+        toHtml: function (format) {
+            var number = this.toString.apply(this, arguments),
+                html;
+
+            if (format === 'short') {
+                html = "<span>" + number + "</span>";
+            } else {
+                html =
+                    "<span>+</span>" + number[1] + number[2] +
+                    "&nbsp;(" + number[3] + number[4] + number[5] + ")&nbsp;" +
+                    "<span>" + number[6] + number[7] + number[8] + "&nbsp;</span>" +
+                    "<span>" + number[9] + number[10] + "&nbsp;</span>" +
+                    "<span>" + number.substr(11, number.length) + "</span>";
+            }
+
+            return html;
         },
 
         /**
