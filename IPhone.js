@@ -521,7 +521,9 @@
             var number = this.toString.apply(this, arguments),
                 html;
 
-            if (format === 'short') {
+            if (!number) {
+                html = "<span></span>";
+            } else if (format === 'short') {
                 html = "<span>" + number + "</span>";
             } else {
                 html =
