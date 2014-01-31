@@ -519,18 +519,23 @@
          */
         toHtml: function (format) {
             var number = this.toString.apply(this, arguments),
-                html;
+                html,
+                substr;
 
             if (!number) {
                 html = "<span></span>";
             } else if (format === 'short') {
                 html = "<span>" + number + "</span>";
             } else {
-                html =
-                    "<span>+</span>" + number[1] + number[2] +
-                    "&nbsp;(" + number[3] + number[4] + number[5] + ")&nbsp;" +
-                    "<span>" + number[6] + number[7] + number[8] + "&nbsp;</span>" +
-                    "<span>" + number[9] + number[10] + "&nbsp;</span>" +
+                html = "";
+                substr = number.substr(1, 2);
+                html += substr ? ("<span>+</span>" + substr) : "";
+                substr = number.substr(3, 3);
+                html += substr ? ("&nbsp;(" + substr + ")&nbsp;") : "";
+                substr = number.substr(6, 3);
+                html += substr ? ("<span>" + substr + "&nbsp;</span>") : "";
+                substr = number.substr(9, 2);
+                html += (substr ? ("<span>" + substr + "&nbsp;</span>") : "") +
                     "<span>" + number.substr(11, number.length) + "</span>";
             }
 
