@@ -254,7 +254,7 @@
          */
         validate: function () {
 
-            if (!this.value) {
+            if (!this.value || this.value.length > 4) {
                 return false;
             }
 
