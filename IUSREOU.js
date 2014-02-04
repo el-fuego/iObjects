@@ -120,19 +120,23 @@
          * @returns {boolean}
          */
         validate: function () {
+            var value = this.value,
+                length = (value && value.length) || 0;
+
             return !!(
-                this.value &&
-                    (/^[0-9]+$/).test(this.value) &&
+                length &&
+                    (/^[0-9]+$/).test(value) &&
 
                     /**
-                     * все нули
+                     * все нули.
+                     * Но существует счет 0000000000
                      */
-                    +this.value != 0 &&
+                    (+value != 0 || length === 10) &&
                     (
                         /**
                          * валидируем по контрольной сумме только значение с длинной maxLengthForValidateCheckSum
                          */
-                        this.value.length > this.options.maxLengthForValidateCheckSum ||
+                        length > this.options.maxLengthForValidateCheckSum ||
                         this._isValidCheckSum()
                     )
             );
