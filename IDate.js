@@ -605,7 +605,7 @@
                     if (key.hasOwnProperty(i)) {
                         prop = i;
 
-                        if ((/^hour|minute|second$/).test(prop)) {
+                        if ((/^(hour|minute|second)$/).test(prop)) {
                             prop += "s";
                         } else if (prop == "day") {
                             prop = "date";
