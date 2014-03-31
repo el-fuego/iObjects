@@ -28,9 +28,7 @@
             }
 
             if (val == null || val === "") {
-
-                this._setAttributesByFloat(0);
-                this._isDefault = true;
+                this._setDefaultData();
             } else if (typeof val === 'number') {
 
                 this._setAttributesByFloat(val);
@@ -62,11 +60,16 @@
                     arr = val.split('.');
 
                     /**
-                     * 1 234,56
+                     * @description 1 234,56 (arr.length != 2 - invalid, because arr.length > 2 - invalid parameter "val")
                      */
-                    if (arr.length !== 2) {
+                    if (arr.length === 1) {
                         arr = val.split(',');
                     }
+                }
+
+                // invalid "val"
+                if (arr.length > 2) {
+                    return this;
                 }
 
                 /**
@@ -129,6 +132,15 @@
         thousandPointer: ' ',
         htmlTag: 'small',
         _isDefault: true,
+
+        /**
+         * @description set default data. For example, where input value is invalid
+         * @private
+         */
+        _setDefaultData: function () {
+            this._setAttributesByFloat(0);
+            this._isDefault = true;
+        },
 
         /**
          * set float, int, fraction by float value
