@@ -225,7 +225,11 @@
          * @return {Boolean}
          */
         isVisa: function () {
-            return !!(this.value && +this.value.substr(0, 1) == 4);
+            return !!(
+                this.value &&
+                +this.value.substr(0, 1) == 4 &&
+                [13, 16, 17, 18, 19].indexOf(this.value.length) >= 0
+            );
         },
 
         /**
@@ -233,7 +237,12 @@
          * @return {Boolean}
          */
         isMasterCard: function () {
-            return !!(this.value && [5, 6].indexOf(+this.value.substr(0, 1)) >= 0);
+            return !!(
+                this.value &&
+                [5, 6].indexOf(+this.value.substr(0, 1)) >= 0 &&
+                this.value.length >= 16 &&
+                this.value.length <= 19
+            );
         },
 
         /**
@@ -245,24 +254,32 @@
             /**
              * check digits count
              */
-            return ([9, 10, 12, 14, 16, 19].indexOf(this.value.length) >= 0);
+            return (this.value.length >= 7 && this.value.length <= 19);
         },
 
         /**
          * Check account
          * @return {Boolean}
          */
-        validate: function () {
+        validate: function (format) {
 
             if (!this.value || this.value.length < 4) {
                 return false;
             }
 
+            if (format == 'luhn') {
+                return this.isCard();
+
+            } else {
             /**
              * If this is not a card and not Visa or Mastercard, detected as account
              */
-            if (!this.isCard() && ((this.isVisa() || this.isMasterCard()) && this.isAccount())) {
+                if (
+                    (!this.isCard() && ((this.isVisa() || this.isMasterCard()) && this.isAccount())) ||
+                        !this.isAccount()
+                ) {
                 return false;
+            }
             }
 
             return true;

@@ -286,7 +286,9 @@
              * add tag to fraction
              * @type {String}
              */
+            if (arr[1]) {
             arr[1] = '<' + htmlTag + '>' + arr[1] + '</' + htmlTag + '>';
+            }
 
             return arr.join(fractionPointer);
         },

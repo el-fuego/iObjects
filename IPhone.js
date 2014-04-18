@@ -347,7 +347,7 @@
          * @returns {string}
          */
         getPhonePrefix: function () {
-            return (this.isMobile()) ? this.toFullFormat().substring(0, 4) : '';
+            return (this.isMobile()) ? this.toFullFormat().substring(0, 6) : '';
         },
 
         /**

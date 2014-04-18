@@ -1,3 +1,2 @@
-/.idea
-/jsdoc-toolkit
-/doc_it.bat
+.idea
+node_modules
