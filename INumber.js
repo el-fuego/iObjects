@@ -151,6 +151,16 @@
             this[floatKey] = num || 0;
             this[intKey] = parseInt(num, 10) || 0;
             this[fractionKey] = Math.abs(Math.round((this[floatKey] - this[intKey]) * 100)) || 0;
+            /**
+             * because of problem with floating numbers such as
+             * 64.32 - 0.32 == 63.9999999
+             * fraction key will be rounded to 100 creating a bug statement
+             */
+            if (this[fractionKey] === 100) {
+                this[fractionKey] = 0;
+                this[intKey]++;
+                this[floatKey] = Math.round(num);
+            }
             this._isDefault = false;
 
             return this;

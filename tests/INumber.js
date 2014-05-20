@@ -152,4 +152,18 @@ describe('INumber', function () {
             assert.isFalse(float.is(null));
         });
     });
+
+    describe('#floating numbers division problem', function () {
+        var n1 = new INumber(64.32 - 0.32).toFloat(),
+            n2 = new INumber(8.04 - 0.04).toFloat(),
+            n3 = new INumber(16.08 - 0.08).toFloat(),
+            n4 = new INumber(32.16 - 0.16).toFloat();
+
+        it('correct values', function () {
+            assert.strictEqual(n1, 64);
+            assert.strictEqual(n2, 8);
+            assert.strictEqual(n3, 16);
+            assert.strictEqual(n4, 32);
+        });
+    });
 });
