@@ -18,6 +18,7 @@ describe('ICurrency', function () {
         assert.equal(new ICurrency('евро').toString(), 'EUR');
         assert.equal(new ICurrency('доллар').toString(), 'USD');
         assert.equal(new ICurrency('030').toString(), 'Газ');
+        assert.equal(new ICurrency('30').toString(), 'Газ');
     });
 
     describe('#is', function () {
