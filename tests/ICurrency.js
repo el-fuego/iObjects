@@ -31,8 +31,8 @@ describe('ICurrency', function () {
         assert.equal(new ICurrency('98').toString(), 'А-95 Energy');
         assert.equal(new ICurrency('098').toString(), 'А-95 Energy');
         assert.equal(new ICurrency('98').toString(), 'А-95 Energy');
-        assert.equal(new ICurrency('030').toString(), 'Газа');
-        assert.equal(new ICurrency('30').toString(), 'Газа');
+        assert.equal(new ICurrency('030').toString(), 'Газ');
+        assert.equal(new ICurrency('30').toString(), 'Газ');
         assert.equal(new ICurrency('090').toString(), 'ДТ Евро');
         assert.equal(new ICurrency('90').toString(), 'ДТ Евро');
         assert.equal(new ICurrency('094').toString(), 'E-95 S');
