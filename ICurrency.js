@@ -1,6 +1,10 @@
 (function (root, undefined) {
     "use strict";
 
+    var symbols = {
+        'USD': '$'
+    };
+
     /**
      * @author Knyazevich Denis, Pulyaev Yuriy
      * Currency Parser|normalizator
@@ -220,6 +224,10 @@
          */
         toHtml: function () {
             return "<span>" + this.toString() + "</span>";
+        },
+
+        getSymbol: function () {
+            return symbols[this.toString()] || '';
         }
     };
 

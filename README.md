@@ -7,6 +7,11 @@
 <li>new <b>IAccount</b>("1234 1234 1234 1234")</li>
 <li>new <b>ICurrency</b>("usd")</li>
 <li>new <b>INumber</b>("1234.01")</li>
+<li>new <b>ICardExpiry</b>("02/16")</li>
+<li>new <b>ICVV</b>("123")</li>
+<li>new <b>IOTP</b>("22 33 44 55")</li>
+<li>new <b>IPhone</b>("+38 096 111 22 33")</li>
+<li>new <b>IEmail</b>("test@mail.com")</li>
 </ul>
 
 

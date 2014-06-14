@@ -48,4 +48,8 @@ describe('ICurrency', function () {
         assert.isTrue(new ICurrency('евро').is('EUR'));
         assert.isTrue(new ICurrency('доллар').is('USD'));
     });
+
+    describe('#getSymbol', function () {
+        assert.equal(new ICurrency('USD').getSymbol(), '$');
+    });
 });
