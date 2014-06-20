@@ -6,9 +6,18 @@
      * @description Accounts Parser, use:a = new IAccount('1234 12 34 12341234')
      * @constructor
      * @param value
+     * @param params
      * @return {*}
      */
-    var IAccount = function (value) {
+    var IAccount = function (value, params) {
+        params = params || {};
+
+        // set default splitter only is undefined. '' or null - remove splitter
+        var splitter = params.splitter === undefined ? '-' : '',
+            maskSymbol = params.maskSymbol || '',
+            numberRegExp,
+            arr;
+
         if (!value) {
             return this;
         }
@@ -23,18 +32,19 @@
              * param is number
              */
             if (typeof value === 'number') {
-
                 this.value = value.toString();
             } else if (typeof value === 'string') {
+                numberRegExp = new RegExp('[^0-9' + maskSymbol + ']+', 'g');
+
                 /**
                  * for view number-account
                  * @type {Array}
                  */
-                var arr = value.split('-');
+                arr = value.split(splitter);
                 value = arr[0];
 
-                this.value = value.replace(/[^0-9]+/g, '') || this.value;
-                this.account = (arr[1] || '').replace(/[^0-9]+/g, '') || this.account;
+                this.value = value.replace(numberRegExp, '') || this.value;
+                this.account = (arr[1] || '').replace(numberRegExp, '') || this.account;
             }
         }
 
