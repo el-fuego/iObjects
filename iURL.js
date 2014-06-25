@@ -64,7 +64,7 @@
 
                 for (i = 0; i < len; i++) {
                     searchParamsData = searchParamsSection[i].split("=");
-                    data[searchParamsData[0]] = searchParamsData[1] || null;
+                    data[searchParamsData[0]] = searchParamsData[1] ? decodeURIComponent(searchParamsData[1]) : "";
                 }
             }
 
