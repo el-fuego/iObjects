@@ -348,12 +348,11 @@
                 today = new Date(),
                 dateType;
 
-            this.attributes = clone(this.defaults);
-
             /**
              * null or undefined
              */
             if (value == undefined) {
+                this.attributes = clone(this.defaults);
                 this._setDate(date);
             } else if (typeof value === 'object' && value instanceof IDate) {
                 /**
@@ -361,6 +360,7 @@
                  */
                 this.attributes = clone(value.attributes);
             } else if (value instanceof Date) {
+                this.attributes = clone(this.defaults);
                 this._setDate(value);
             } else if (typeof value === 'object' && value !== null) {
                 /**
@@ -370,6 +370,7 @@
 
                 this.attributes = clone((new IDate(dateType)).getShifted(value).attributes);
             } else if (typeof value === 'number') {
+                this.attributes = clone(this.defaults);
                 // milliseconds
                 if (value > 60 * 60 * 24 * 1000) {
                     date = new Date(value);
@@ -421,8 +422,10 @@
                     );
                 }
 
+                this.attributes = clone(this.defaults);
                 this._setDate(date);
             } else if (typeof value === 'string') {
+                this.attributes = clone(this.defaults);
                 for (i = 0, l = this.parsers.date.length; i < l && !parsedDate && this.parsers.date[i]; i++) {
                     parsedDate = this.parsers.date[i].call(this, value);
                 }
