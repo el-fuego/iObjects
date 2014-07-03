@@ -51,5 +51,6 @@ describe('ICurrency', function () {
 
     describe('#getSymbol', function () {
         assert.equal(new ICurrency('USD').getSymbol(), '$');
+        assert.equal(new ICurrency('EUR').getSymbol(), '€');
     });
 });

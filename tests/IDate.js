@@ -81,7 +81,7 @@ describe('IDate', function () {
 
     describe('#getMilliseconds', function () {
         it('correct values', function () {
-            assert.strictEqual(time.getMilliseconds(), 1391205599000);
+            assert.strictEqual(time.getMilliseconds(), 1391209199000);
         });
     });
 

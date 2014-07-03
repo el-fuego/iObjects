@@ -2,7 +2,8 @@
     "use strict";
 
     var symbols = {
-        'USD': '$'
+        'USD': '$',
+        'EUR': '€'
     };
 
     /**

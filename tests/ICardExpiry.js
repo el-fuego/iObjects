@@ -6,6 +6,7 @@ describe('ICardExpiry', function () {
         assert.isTrue(new ICardExpiry(' 09 / 15 ').validate());
         assert.isTrue(new ICardExpiry(' 9 / 15').validate());
         assert.isTrue(new ICardExpiry(' 01 / 15 ').validate());
+        assert.isTrue(new ICardExpiry('11 / 15').validate());
         assert.isTrue(new ICardExpiry(' 01 / 2015 ').validate());
         assert.isFalse(new ICardExpiry('0.1/14').validate());
         assert.isFalse(new ICardExpiry('1/1.4').validate());
