@@ -124,6 +124,8 @@
 
         var data,
             isNotNumber = isNaN(str),
+            hasOnlyOneSymbol = str.length === 1,
+            isOnlyOne = hasOnlyOneSymbol && str == 1,
             formattedSplitter = String(splitter).trim(),
             result = "";
 
@@ -133,13 +135,13 @@
 
         data = this.split(str, formattedSplitter);
 
-        if (data[0] > 1 || (isNotNumber && data[0] > 0) || /0/.test(str)) {
-            result += this.monthToString(data[0]);
+        if (isOnlyOne) {
+            result += "1";
         } else {
-            result += data[0];
+            result += this.monthToString(data[0]);
         }
 
-        if (data[0] > 1 || (isNotNumber && data[0] > 0)) {
+        if (data[0] > 1 || (isNotNumber && data[0] > 1) || (result.length > 1 && !hasOnlyOneSymbol)) {
             result += splitter;
 
             if (data[1]) {
@@ -152,9 +154,19 @@
 
     ICardExpiry.split = function (data, splitter) {
         splitter = splitter || defaultSplitter;
-        var parsedData = String(data).trim().split(splitter),
-            month = +parsedData[0].replace(/\s+/g, ''),
-            year = parsedData[1] && +parsedData[1].replace(/\s+/g, '');
+        data = String(data).trim();
+
+        var parsedData = data.split(splitter),
+            month,
+            year;
+
+        if (parsedData.length === 1 && data.length > 2) {
+            month = data.substr(0, 2);
+            year = data.substring(2);
+        } else {
+            month = parsedData[0].replace(/\s+/g, '');
+            year = parsedData[1] && parsedData[1].replace(/\s+/g, '');
+        }
 
         return [
             isNaN(month) ? 0 : month,
@@ -162,8 +174,10 @@
         ];
     };
 
-    ICardExpiry.monthToString = function (d) {
-        return (d > 0 && d < 10 ? '0' : '') + d;
+    ICardExpiry.monthToString = function (month) {
+        var m = +month;
+
+        return (m > 0 && m < 10 ? '0' : '') + m;
     };
 
     if (typeof module !== "undefined" && module.exports) {

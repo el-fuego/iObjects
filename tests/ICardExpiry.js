@@ -27,8 +27,9 @@ describe('ICardExpiry', function () {
 
     describe('#format', function () {
         assert.equal(ICardExpiry.format('11/14', ' / '), '11 / 14');
-        assert.equal(ICardExpiry.format('01', ' / '), '01');
+        assert.equal(ICardExpiry.format('01', ' / '), '01 / ');
         assert.equal(ICardExpiry.format('1', ' / '), '1');
+        assert.equal(ICardExpiry.format('011', ' / '), '01 / 1');
         assert.equal(ICardExpiry.format('0/', ' / '), '0');
         assert.equal(ICardExpiry.format('2', ' / '), '02 / ');
         assert.equal(ICardExpiry.format('2/', ' / '), '02 / ');
