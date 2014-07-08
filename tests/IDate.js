@@ -1,5 +1,6 @@
 describe('IDate', function () {
     var today = new IDate('18 апреля 2014'),
+        dateWithTime = new Date(2014, 0, 31, 23, 59, 59, 999),
         time = new IDate('31.01.2014 23:59:59.999'),
         now = new IDate('now'),
         date = new Date(),
@@ -81,7 +82,7 @@ describe('IDate', function () {
 
     describe('#getMilliseconds', function () {
         it('correct values', function () {
-            assert.strictEqual(time.getMilliseconds(), 1391209199000);
+            assert.strictEqual(time.getMilliseconds(), Date.parse(dateWithTime));
         });
     });
 
