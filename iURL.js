@@ -69,6 +69,46 @@
             }
 
             return data;
+        },
+
+        replaceSearchParams: function (url, params) {
+            var i,
+                name,
+                otherParams = [],
+                paramsAsSearchString = '',
+                searchQuerySplitter = '?',
+                searchParamsSplitter = "&",
+                searchDataSplitter = "=",
+                searchString = '',
+                urlData = url.split(searchQuerySplitter),
+                searchData = (urlData[1] || "").split(searchParamsSplitter),
+                len = searchData.length;
+
+            for (i in params) {
+                if (params.hasOwnProperty(i)) {
+                    paramsAsSearchString += i + searchDataSplitter + params[i] + "&";
+                }
+            }
+
+            paramsAsSearchString = paramsAsSearchString.replace(/\&$/, '');
+
+            if (len < 2) {
+                searchString = paramsAsSearchString;
+            } else {
+                for (i = len - 1; i >= 0; i--) {
+                    name = searchData[i].split(searchDataSplitter)[0];
+
+                    if (params[name] === undefined) {
+                        otherParams.push(searchData[i]);
+                    }
+                }
+
+                otherParams.push(paramsAsSearchString);
+
+                searchString = otherParams.join(searchParamsSplitter);
+            }
+
+            return urlData[0] + searchQuerySplitter + searchString;
         }
     };
 
