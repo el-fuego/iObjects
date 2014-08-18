@@ -81,6 +81,7 @@
                 searchDataSplitter = "=",
                 searchString = '',
                 urlData = url.split(searchQuerySplitter),
+                hasSearchParams = !!urlData[1],
                 searchData = (urlData[1] || "").split(searchParamsSplitter),
                 len = searchData.length;
 
@@ -92,7 +93,7 @@
 
             paramsAsSearchString = paramsAsSearchString.replace(/\&$/, '');
 
-            if (len < 2) {
+            if (!hasSearchParams) {
                 searchString = paramsAsSearchString;
             } else {
                 for (i = len - 1; i >= 0; i--) {
