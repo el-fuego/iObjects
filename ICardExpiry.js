@@ -122,6 +122,8 @@
         str = String(str || '');
         splitter = splitter || defaultSplitter;
 
+        str = str.replace(new RegExp('[^0-9 ' + splitter + ']+'), '');
+
         var data,
             isNotNumber = isNaN(str),
             hasOnlyOneSymbol = str.length === 1,
@@ -141,7 +143,9 @@
             result += this.monthToString(data[0]);
         }
 
-        if (data[0] > 1 || (isNotNumber && data[0] > 1) || (result.length > 1 && !hasOnlyOneSymbol)) {
+        if (!isNotNumber && data[0] > 12) {
+            result = "1";
+        } else if (data[0] > 1 || (isNotNumber && data[0] > 1) || (result.length > 1 && !hasOnlyOneSymbol)) {
             result += splitter;
 
             if (data[1]) {
