@@ -3,7 +3,16 @@
 
     var symbols = {
         'USD': '$',
-        'EUR': '€'
+        'EUR': '€',
+        'PLN': 'zł',
+        'MXN': '$',
+        'AUD': 'A$',
+        'ZAR': 'R',
+        'GBP': '£',
+        'CHF': 'CHF',
+        'INR': '₹',
+        'HKD': 'HK$',
+        'PHP': '₱'
     };
 
     /**

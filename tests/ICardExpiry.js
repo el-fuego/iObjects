@@ -1,15 +1,26 @@
 describe('ICardExpiry', function () {
+    var today = new Date(),
+        currentYear = today.getFullYear(),
+        nextYear = currentYear + 1,
+        prevYear = currentYear - 1,
+        currentMonth = today.getMonth() + 1,
+        nextShortYear = +(String(nextYear).substring(2, 4)),
+        currentShortYear = +(String(currentYear).substring(2, 4));
+
     describe('#validate', function () {
-        assert.isTrue(new ICardExpiry('11/14').validate());
-        assert.isFalse(new ICardExpiry('14/19').validate());
-        assert.isFalse(new ICardExpiry('02/14').validate());
-        assert.isTrue(new ICardExpiry(' 1 / 15 ').validate());
-        assert.isTrue(new ICardExpiry(' 09 / 15 ').validate());
-        assert.isTrue(new ICardExpiry(' 9 / 15').validate());
-        assert.isTrue(new ICardExpiry(' 01 / 15 ').validate());
-        assert.isTrue(new ICardExpiry('11 / 15').validate());
-        assert.isTrue(new ICardExpiry(' 01 / 2015 ').validate());
-        assert.isFalse(new ICardExpiry('0.1/14').validate());
+        assert.isTrue(new ICardExpiry(currentMonth + '/' + currentShortYear).validate());
+        assert.isTrue(new ICardExpiry(' ' + currentMonth + ' / ' + currentShortYear).validate());
+        assert.isTrue(new ICardExpiry(currentMonth + '  / ' + currentShortYear + ' ').validate());
+        assert.isTrue(new ICardExpiry(' 9 / ' + nextYear).validate());
+        assert.isTrue(new ICardExpiry(' 09 / ' + nextYear).validate());
+        assert.isTrue(new ICardExpiry(' 01 / ' + nextYear + ' ').validate());
+        assert.isTrue(new ICardExpiry('11 / ' + nextYear).validate());
+        assert.isTrue(new ICardExpiry(' 01 / ' + nextYear + ' ').validate());
+
+        assert.isFalse(new ICardExpiry('11/' + prevYear).validate());
+        assert.isFalse(new ICardExpiry('14/' + currentShortYear).validate());
+        assert.isFalse(new ICardExpiry('02/' + currentShortYear).validate());
+        assert.isFalse(new ICardExpiry('0.1/' + currentShortYear).validate());
         assert.isFalse(new ICardExpiry('1/1.4').validate());
         assert.isFalse(new ICardExpiry('1/4').validate());
         assert.isFalse(new ICardExpiry('1/9').validate());
@@ -19,15 +30,16 @@ describe('ICardExpiry', function () {
     });
 
     describe('#toString', function () {
-        assert.equal(new ICardExpiry('11/14').toString('', ' / '), '11 / 14');
-        assert.equal(new ICardExpiry('02/15').toString('', ' / '), '02 / 15');
-        assert.equal(new ICardExpiry('01/15').toString('', ' / '), '01 / 15');
-        assert.equal(new ICardExpiry('1/15').toString('', ' / '), '01 / 15');
-        assert.equal(new ICardExpiry('3/15').toString('', ' / '), '03 / 15');
-        assert.equal(new ICardExpiry('11/2014').toString('short', ' / '), '11 / 14');
-        assert.equal(new ICardExpiry('11/2014').toString('full', ' / '), '11 / 2014');
-        assert.notEqual(new ICardExpiry('11/14').toString('full', ' / '), '11 / 2014');
-        assert.equal(new ICardExpiry('11/14').toString('full', ' / '), '11 / 14');
+        assert.equal(new ICardExpiry('11/' + nextShortYear).toString('', ' / '), '11 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('02/' + nextShortYear).toString('', ' / '), '02 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('01/' + nextShortYear).toString('', ' / '), '01 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('1/' + nextShortYear).toString('', ' / '), '01 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('3/' + nextShortYear).toString('', ' / '), '03 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('11/' + nextYear).toString('short', ' / '), '11 / ' + nextShortYear);
+        assert.equal(new ICardExpiry('11/' + nextYear).toString('full', ' / '), '11 / ' + nextYear);
+        assert.equal(new ICardExpiry('11/' + nextShortYear).toString('full', ' / '), '11 / ' + nextShortYear);
+
+        assert.notEqual(new ICardExpiry('11/' + nextShortYear).toString('full', ' / '), '11 / ' + nextYear);
     });
 
     describe('#format', function () {

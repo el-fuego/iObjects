@@ -50,7 +50,24 @@ describe('ICurrency', function () {
     });
 
     describe('#getSymbol', function () {
-        assert.equal(new ICurrency('USD').getSymbol(), '$');
-        assert.equal(new ICurrency('EUR').getSymbol(), '€');
+        var symbols = {
+            'USD': '$',
+            'EUR': '€',
+            'PLN': 'zł',
+            'MXN': '$',
+            'AUD': 'A$',
+            'ZAR': 'R',
+            'GBP': '£',
+            'CHF': 'CHF',
+            'INR': '₹',
+            'HKD': 'HK$',
+            'PHP': '₱'
+        };
+
+        for (var k in symbols) {
+            if (symbols.hasOwnProperty(k)) {
+                assert.equal(new ICurrency(k).getSymbol(), symbols[k]);
+            }
+        }
     });
 });
