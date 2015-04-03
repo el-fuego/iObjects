@@ -61,7 +61,8 @@ describe('ICurrency', function () {
             'CHF': 'CHF',
             'INR': '₹',
             'HKD': 'HK$',
-            'PHP': '₱'
+            'PHP': '₱',
+            'TRY': '₺'
         };
 
         for (var k in symbols) {
